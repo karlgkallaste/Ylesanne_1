@@ -4,6 +4,7 @@ const guesses = document.querySelector('.guesses');
 const results = document.querySelector('.results');
 const lastResult = document.querySelector('.lastResult');
 const lowOrHigh = document.querySelector('.lowOrHigh');
+const uus = document.querySelector('.uus');
 
 let randomNumber = Math.floor(Math.random()* 100) +1;
 
@@ -17,21 +18,36 @@ const checkGuess = () => {
   }
   guesses.textContent += `${userGuess} `;
   
-  if(userGuesses ===randomNumber){
-    //kood
+  if(userGuess ===randomNumber){
+    //success
+    lastResult.textContent = 'Palju õnne sa võitsid!'
+    lastResult.style.backgroundColor = 'green'
+    lowOrHigh.textContent = '';
   }
   else if (guessCount === 10){
     //10 arvamist.
+    lastResult.textContent = 'Mäng läbi!'
+    lastResult.style.backgroundColor = 'red'
+    guesses.textContent = ''
+    lowOrHigh.textContent = ""
   }
   else{
-    if (userGuesses < randomNumber){
+    lastResult.textContent = 'Vale vastus'
+        lastResult.style.backgroundColor = 'red'
+    if (userGuess < randomNumber){
       //liigakõrhe
+      lowOrHigh.textContent = "Liiga madal"
     }
-    else if (userGuesses > randomNumber){
+    else if (userGuess > randomNumber){
       //liiga madal
+            lowOrHigh.textContent = "Liiga kõrge"
     
     }
   }
+
     guessCount ++;
+    guessField.value = '';
+    guessField.focus ();
 };
+
 guessSubmit.addEventListener('click', checkGuess);
